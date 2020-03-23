@@ -6,18 +6,24 @@ import java.util.regex.Pattern;
 public class WordPrinter {
   private static Pattern pattern;
   private static Matcher matcher;
-  private static String result = "    ";
+  private static boolean wasTextFound;
 
-  public static void printWordsFromText(String textToCheck) {
+  public static  StringBuffer orderWordsFromTextAlphabetically(String textToCheck) {
+    StringBuffer result = new StringBuffer("");
     for (char character = 'a'; character <= 'z'; ++character) {
       String letter = String.valueOf(character);
-      pattern = Pattern.compile("\\b[" + letter + letter.toUpperCase() + "]\\w*['-]?\\w+[']?");
+      pattern = Pattern.compile("\\b[" + letter + "][a-zA-Z]*['’-]?[a-zA-Z]+['’]?",
+          Pattern.CASE_INSENSITIVE);
       matcher = pattern.matcher(textToCheck);
       while (matcher.find()) {
-        result += matcher.group() + " ";
+        result.append(matcher.group() + " ");
+        wasTextFound = true;
       }
-      result += "\n    ";
+      if (wasTextFound) {
+        result.append("\n    ");
+      }
+      wasTextFound = false;
     }
-    System.out.println(result);
+    return result;
   }
 }
