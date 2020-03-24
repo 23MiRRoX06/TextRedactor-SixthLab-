@@ -8,8 +8,8 @@ public class WordPrinter {
   private static Matcher matcher;
   private static boolean wasTextFound;
 
-  public static  StringBuffer orderWordsFromTextAlphabetically(String textToCheck) {
-    StringBuffer result = new StringBuffer("");
+  public static String orderWordsFromTextAlphabetically(String textToCheck) {
+    StringBuffer result = new StringBuffer("    ");
     for (char character = 'a'; character <= 'z'; ++character) {
       String letter = String.valueOf(character);
       pattern = Pattern.compile("\\b[" + letter + "][a-zA-Z]*['’-]?[a-zA-Z]+['’]?",
@@ -24,6 +24,6 @@ public class WordPrinter {
       }
       wasTextFound = false;
     }
-    return result;
+    return result.toString();
   }
 }
